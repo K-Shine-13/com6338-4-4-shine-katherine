@@ -4,27 +4,45 @@ const input = form.querySelector('input')
 const todoList = document.getElementById('todo-list')
 
 // Add submit event listener to the form
+form.addEventListener('submit', function (e) {
 
+    // Prevent default form behavior
+    e.preventDefault()
+    //console.log confirmation on submission
+    console.log('submitted!')
 
-// Prevent default form behavior
-form.addEventListener('submit', function (e)) {
-  e.preventDefault()
-}
-//console.log confirmation
-console.log('submitted')
+    // Get and validate input value
+    const text = input.value.trim()
+    if (text === '') return
 
-// Get and validate input value
+    // Create new list item elements (li & button)
+    const li = document.createElement('li')
+    const button = document.createElement('button')
+    button.textContent = text
 
+    // Add click event to button
+    button.addEventListener('click', function () {
 
-// Create new list item elements (li + button)
+        // If already done => remove item from list
+        if (button.style.textDecoration === 'line-through') {
+            li.remove()
+            //console.log confirmation on removal
+            console.log('removed!')
+        }
+        // Else => mark as done w/ strikethrough
+        else {
+            button.style.textDecoration = 'line-through';
+            //console.log confirmation on completion
+            console.log('completed!')
+        }
 
+    })
 
-// Add click event to button
-    // If already done → remove item from list
-    // Else → mark as done w/ strikethrough
+    // Append elements to the list
+    li.appendChild(button)
+    todoList.appendChild(li)
 
+    // Clear the input field
+    input.value = ''
 
-// Append elements to the list
-
-
-// Clear the input field
+})
